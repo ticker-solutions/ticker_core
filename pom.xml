@@ -11,7 +11,7 @@
 
 	<properties>
 		<jersey.version>2.14</jersey.version>
-		<spring.version>4.1.4.RELEASE</spring.version>	
+		<spring.version>4.1.4.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
@@ -45,17 +45,17 @@
 			<artifactId>jersey-server</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet-core</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
 
-	
 
-<!-- Jersey-Spring http://mvnrepository.com/artifact/org.glassfish.jersey.ext/jersey-spring3/2.4.1 -->
-		
+
+		<!-- Jersey-Spring http://mvnrepository.com/artifact/org.glassfish.jersey.ext/jersey-spring3/2.4.1 -->
+
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
@@ -65,29 +65,56 @@
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-multipart</artifactId>
 			<version>${jersey.version}</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.ext</groupId>
 			<artifactId>jersey-entity-filtering</artifactId>
 			<version>${jersey.version}</version>
-		</dependency>	
-		
-		
-		
-		
-			<!-- testing -->
-	    <!-- Jersey-client -->
+		</dependency>
+
+
+
+
+		<!-- testing -->
+		<!-- Jersey-client -->
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>${jersey.version}</version>			
-		</dependency>						
+			<version>${jersey.version}</version>
+		</dependency>
 
 
 	</dependencies>
 
 	<build>
 		<finalName>TickerCore</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.github.jsimone</groupId>
+									<artifactId>webapp-runner</artifactId>
+									<version>7.0.57.2</version>
+									<destFileName>webapp-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
+
+
 
 </project>
