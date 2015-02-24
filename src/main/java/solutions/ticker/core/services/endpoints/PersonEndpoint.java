@@ -8,7 +8,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import solutions.ticker.core.dtos.PersonRequestDTO;
-import solutions.ticker.core.dtos.PersonResponseDTO;
 import solutions.ticker.core.managers.impl.PersonManager;
 
 //Plain old Java Object it does not extend as class or implements 
@@ -30,7 +29,7 @@ public class PersonEndpoint {
 	  @Consumes({MediaType.APPLICATION_JSON})
 	  public Response getXML(final PersonRequestDTO personRequestDTO) {	
 		  PersonManager personManager = new PersonManager();
-		  return Response.ok().entity(personManager.signOn(personRequestDTO)).build();
+		  return Response.ok().entity(personManager.signOn(personRequestDTO)).allow("OPTIONS").build();
 	  }
 	  
 	
