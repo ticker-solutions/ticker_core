@@ -29,7 +29,7 @@ public class PersonEndpoint {
 	  @Consumes({MediaType.APPLICATION_JSON})
 	  public Response getXML(final PersonRequestDTO personRequestDTO) {	
 		  PersonManager personManager = new PersonManager();
-		  return Response.ok().entity(personManager.signOn(personRequestDTO)).allow("OPTIONS").build();
+		  return Response.ok().entity(personManager.signOn(personRequestDTO)).build();
 	  }
 	  
 	
