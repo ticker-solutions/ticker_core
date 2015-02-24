@@ -2,10 +2,9 @@ package solutions.ticker.core.dtos;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-
-@XmlRootElement
+@JacksonXmlRootElement
 public class CountryResponse {
 
 	private ContextResponse contextResponse;

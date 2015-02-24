@@ -1,9 +1,9 @@
 package solutions.ticker.core.dtos;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 
-@XmlRootElement
+@JacksonXmlRootElement
 public class CountryDTO {
 
 	private Integer country_id;
