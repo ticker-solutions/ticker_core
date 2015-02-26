@@ -30,8 +30,7 @@ public class PersonEndpoint {
 	  public Response getXML(final PersonRequestDTO personRequestDTO) {	
 		  PersonManager personManager = new PersonManager();
 		  
-		  return Response.ok().entity("gol").build();
-//		  return Response.ok().entity(personManager.signOn(personRequestDTO)).build();
+		  return Response.ok().entity(personManager.signOn(personRequestDTO)).build();
 	  }
 	  
 	

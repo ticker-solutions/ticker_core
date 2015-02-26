@@ -13,19 +13,19 @@ public class CompanyTest {
 
 	@Test
 	public void testCompanyCreation(){
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-	     EntityManager em = emf.createEntityManager();
-	     EntityTransaction et= em.getTransaction();
-	     
-	     CompanyEntity companyEntity = new CompanyEntity();
-	     companyEntity.setName("Ticker");
-	     companyEntity.setCountry("Colombia");
-	     companyEntity.setCity("Medellin");
-	     
-	     et.begin();
-	     em.persist(companyEntity);
-	     if(et !=null){
-	    	 et.commit();
-	     }
+//		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+//	     EntityManager em = emf.createEntityManager();
+//	     EntityTransaction et= em.getTransaction();
+//	     
+//	     CompanyEntity companyEntity = new CompanyEntity();
+//	     companyEntity.setName("Ticker");
+//	     companyEntity.setCountry("Colombia");
+//	     companyEntity.setCity("Medellin");
+//	     
+//	     et.begin();
+//	     em.persist(companyEntity);
+//	     if(et !=null){
+//	    	 et.commit();
+//	     }
 	}
 }

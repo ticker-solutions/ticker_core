@@ -28,24 +28,24 @@ public class PersonTest {
 	
 	@Test
 	public void testPersonCreation(){
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-	     EntityManager em = emf.createEntityManager();
-	     EntityTransaction et= em.getTransaction();
-	     
-	     CompanyEntity companyEntity = em.find(CompanyEntity.class, 1);
-
-	     PersonEntity personEntity = new PersonEntity();
-	     personEntity.setDate_of_birth(Calendar.getInstance());
-	     personEntity.setEmail("gnewball11@gmail.com");
-	     personEntity.setName("Garry");
-	     personEntity.setLast_name("Newball");
-	     personEntity.setPassword("fdsds3342");
-	     
-	     et.begin();
-	     em.persist(personEntity);
-	     if(et !=null){
-	    	 et.commit();
-	     }
+//		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+//	     EntityManager em = emf.createEntityManager();
+//	     EntityTransaction et= em.getTransaction();
+//	     
+//	     CompanyEntity companyEntity = em.find(CompanyEntity.class, 1);
+//
+//	     PersonEntity personEntity = new PersonEntity();
+//	     personEntity.setDate_of_birth(Calendar.getInstance());
+//	     personEntity.setEmail("gnewball11@gmail.com");
+//	     personEntity.setName("Garry");
+//	     personEntity.setLast_name("Newball");
+//	     personEntity.setPassword("fdsds3342");
+//	     
+//	     et.begin();
+//	     em.persist(personEntity);
+//	     if(et !=null){
+//	    	 et.commit();
+//	     }
 	 }	
 	
 	
