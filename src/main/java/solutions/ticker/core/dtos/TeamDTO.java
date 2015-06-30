@@ -1,26 +1,30 @@
 package solutions.ticker.core.dtos;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+public class TeamDTO {
 
-@JacksonXmlRootElement
-public class CompanyDTO {
-	
-	private Integer company_id;
+	private Integer team_id;
 	private String name;
+	private CompanyDTO companyDTO;
 	private CountryDTO countryDTO;
 	private CityDTO cityDTO;
 	
-	public Integer getCompany_id() {
-		return company_id;
+	public Integer getTeam_id() {
+		return team_id;
 	}
-	public void setCompany_id(Integer company_id) {
-		this.company_id = company_id;
+	public void setTeam_id(Integer team_id) {
+		this.team_id = team_id;
 	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public CompanyDTO getCompanyDTO() {
+		return companyDTO;
+	}
+	public void setCompanyDTO(CompanyDTO companyDTO) {
+		this.companyDTO = companyDTO;
 	}
 	public CountryDTO getCountryDTO() {
 		return countryDTO;
@@ -34,7 +38,6 @@ public class CompanyDTO {
 	public void setCityDTO(CityDTO cityDTO) {
 		this.cityDTO = cityDTO;
 	}
-	
 	
 	
 }

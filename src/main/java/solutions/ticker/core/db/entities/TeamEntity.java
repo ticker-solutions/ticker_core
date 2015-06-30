@@ -10,23 +10,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="company")
-public class CompanyEntity {
-
+@Table(name="team")
+public class TeamEntity {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer company_id;
+	private Integer team_id;
 	private String name;
 	@ManyToOne(fetch=FetchType.LAZY,optional=false)
-	@JoinColumn(name="city_id")
-	private CityEntity cityEntity;
+	@JoinColumn(name="company_id")
+	private CompanyEntity companyEntity;
 	
 	
-	public Integer getCompany_id() {
-		return company_id;
+	
+	public Integer getTeam_id() {
+		return team_id;
 	}
-	public void setCompany_id(Integer company_id) {
-		this.company_id = company_id;
+	public void setTeam_id(Integer team_id) {
+		this.team_id = team_id;
 	}
 	public String getName() {
 		return name;
@@ -34,12 +35,13 @@ public class CompanyEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public CityEntity getCityEntity() {
-		return cityEntity;
+	public CompanyEntity getCompanyEntity() {
+		return companyEntity;
 	}
-	public void setCityEntity(CityEntity cityEntity) {
-		this.cityEntity = cityEntity;
+	public void setCompanyEntity(CompanyEntity companyEntity) {
+		this.companyEntity = companyEntity;
 	}
 	
 	
+
 }

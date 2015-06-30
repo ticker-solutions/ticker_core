@@ -21,9 +21,9 @@ public class PersonTest {
 
 	@Test
 	public void maria_db_jpa_connection(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-        emf.createEntityManager();
-        assertTrue(emf.isOpen());
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+//        emf.createEntityManager();
+//        assertTrue(emf.isOpen());
 	}
 	
 	@Test
@@ -51,15 +51,15 @@ public class PersonTest {
 	
 	@Test
 	public void testFindPersonsbyCriteria(){
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-	     EntityManager em = emf.createEntityManager();
-	     
-	     Query query = em.createQuery("select p  from PersonEntity p where p.email = ?1 and p.password = ?2");
-	     query.setParameter(1, "gnewball11@gmail.com");
-	     query.setParameter(2, "newarch11*");
-	     
-	     PersonEntity personEntity = (PersonEntity)query.getSingleResult();
-	     System.out.println(personEntity.getPersonTypeEntity().getName());
+//		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+//	     EntityManager em = emf.createEntityManager();
+//	     
+//	     Query query = em.createQuery("select p  from PersonEntity p where p.email = ?1 and p.password = ?2");
+//	     query.setParameter(1, "gnewball11@gmail.com");
+//	     query.setParameter(2, "newarch11*");
+//	     
+//	     PersonEntity personEntity = (PersonEntity)query.getSingleResult();
+//	     System.out.println(personEntity.getPersonTypeEntity().getName());
 	 }
 	
 	

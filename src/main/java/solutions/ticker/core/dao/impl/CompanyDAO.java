@@ -12,18 +12,38 @@ import solutions.ticker.core.dao.ICompanyDAO;
 import solutions.ticker.core.db.entities.CompanyEntity;
 
 public class CompanyDAO implements ICompanyDAO {
+	
 
 	public List<CompanyEntity> getCompanies() {
 		
 		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
 	     EntityManager em = emf.createEntityManager();
-	     	     
-	     Query query = em.createQuery("select c from CompanyEntity c");
+	     	     	     
 	     try{
+	    	 Query query = em.createQuery("select c from CompanyEntity c");
+	    	 
 	    	 return query.getResultList();
 	     }catch(NoResultException e){
 	    	return null;
 	     }	   
+	}
+
+	@Override
+	public void createCompny(CompanyEntity companyEntity) {
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+	     EntityManager em = emf.createEntityManager();
+	         
+	     try{
+	    	 
+	    		    	 
+	    	 em.getTransaction().begin();
+	    	 em.persist(companyEntity);
+	    	 em.getTransaction().commit();
+	    	 em.close();
+	     }catch(NoResultException e){
+	    	 e.printStackTrace();
+	     }	   
+		
 	}
 
 }

@@ -1,6 +1,7 @@
 package solutions.ticker.core.managers.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import solutions.ticker.core.constant.Status;
 import solutions.ticker.core.dao.ICityDAO;
@@ -22,7 +23,8 @@ public class CityManager implements ICityManager {
 		String status=Status.APPROVED.toString();
 		ICityDAO cityDAO = new CityDAO();
 		try{
-			for(CityEntity cityEntity: cityDAO.getCities(cityRequest)){
+			List<CityEntity> cityEntities = cityDAO.getCities(cityRequest);
+			for(CityEntity cityEntity: cityEntities){
 				CityDTO cityDTO = new CityDTO();
 				cityDTO.setCity_id(cityEntity.getCity_id());
 				cityDTO.setName(cityEntity.getName());

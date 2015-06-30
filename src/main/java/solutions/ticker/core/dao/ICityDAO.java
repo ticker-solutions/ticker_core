@@ -9,4 +9,6 @@ public interface ICityDAO {
 
 	public List<CityEntity> getCities(CityRequest cityRequest);
 	
+	public CityEntity getCityById(Integer cityId);
+	
 }

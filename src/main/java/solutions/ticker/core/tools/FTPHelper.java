@@ -1,80 +1,59 @@
 package solutions.ticker.core.tools;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpException;
+
 
 public class FTPHelper {
 
-    String server = "www.myserver.com";
-    int port = 21;
-    String user = "user";
-    String pass = "pass";
-
-    FTPClient ftpClient = new FTPClient();
+	String SFTPHOST = "ticker.solutions";
+	int    SFTPPORT = 7822;
+	String SFTPUSER = "root";
+	String SFTPPASS = "newarch11*";
+	String SFTPWORKINGDIR = "/var/www/html/ticker.solutions/library_template/";
+	 
+	Session     session     = null;
+	Channel     channel     = null;
+	ChannelSftp channelSftp = null;
 	
-	public void uploadFile(){
-		
-        try {
-        	 
-            ftpClient.connect(server, port);
-            ftpClient.login(user, pass);
-            ftpClient.enterLocalPassiveMode();
- 
-            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
- 
-            // APPROACH #1: uploads first file using an InputStream
-            File firstLocalFile = new File("D:/Test/Projects.zip");
- 
-            String firstRemoteFile = "Projects.zip";
-            InputStream inputStream = new FileInputStream(firstLocalFile);
- 
-            System.out.println("Start uploading first file");
-            boolean done = ftpClient.storeFile(firstRemoteFile, inputStream);
-            inputStream.close();
-            if (done) {
-                System.out.println("The first file is uploaded successfully.");
-            }
- 
-            // APPROACH #2: uploads second file using an OutputStream
-            File secondLocalFile = new File("E:/Test/Report.doc");
-            String secondRemoteFile = "test/Report.doc";
-            inputStream = new FileInputStream(secondLocalFile);
- 
-            System.out.println("Start uploading second file");
-            OutputStream outputStream = ftpClient.storeFileStream(secondRemoteFile);
-            byte[] bytesIn = new byte[4096];
-            int read = 0;
- 
-            while ((read = inputStream.read(bytesIn)) != -1) {
-                outputStream.write(bytesIn, 0, read);
-            }
-            inputStream.close();
-            outputStream.close();
- 
-            boolean completed = ftpClient.completePendingCommand();
-            if (completed) {
-                System.out.println("The second file is uploaded successfully.");
-            }
- 
-        } catch (IOException ex) {
-            System.out.println("Error: " + ex.getMessage());
-            ex.printStackTrace();
-        } finally {
-            try {
-                if (ftpClient.isConnected()) {
-                    ftpClient.logout();
-                    ftpClient.disconnect();
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
+	public void connect(){
+		try {
+			 JSch jsch = new JSch();
+			 session = jsch.getSession(SFTPUSER,SFTPHOST,SFTPPORT);
+	         session.setPassword(SFTPPASS);
+	         java.util.Properties config = new java.util.Properties();
+	         config.put("StrictHostKeyChecking", "no");
+	         session.setConfig(config);
+	         session.connect();
+	         channel = session.openChannel("sftp");
+	         channel.connect();
+	         channelSftp = (ChannelSftp)channel;
+	         channelSftp.cd(SFTPWORKINGDIR);
+        } catch (JSchException e) {
+ 			e.printStackTrace();
+ 		} catch (SftpException e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+	public void uploadFile(InputStream fileInputStream,String fileName){
+		try {
+			channelSftp.put(fileInputStream,fileName);
+		} catch (SftpException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void disconnect(){
+		  channel.disconnect();
+		  session.disconnect();		
 	}
 	
 }

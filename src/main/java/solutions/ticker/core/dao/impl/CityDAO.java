@@ -18,14 +18,30 @@ public class CityDAO implements ICityDAO {
 		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
 	     EntityManager em = emf.createEntityManager();
 	     	     
-	     Query query = em.createQuery("select c from CityEntity c where c.countryEntity.country_id =?1 and c.population =?2");
+	     Query query = em.createQuery("select c from CityEntity c where c.countryEntity.country_id =?1 and c.population > ?2");
 	     try{
 	    	 query.setParameter(1,cityRequest.getCountryDTO().getCountry_id());
-	    	 query.setParameter(2,"1000000");
+	    	 query.setParameter(2,1000000);
 	    	 return query.getResultList();
 	     }catch(NoResultException e){
 	    	return null;
-	     }	   
+	     }catch (Exception e) {
+	    	 return null;
+		}	   
+	}
+
+	@Override
+	public CityEntity getCityById(Integer cityId) {
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+	     EntityManager em = emf.createEntityManager();
+	     
+	     try{
+	    	 return em.find(CityEntity.class, cityId);
+	     }catch(NoResultException e){
+	    	return null;
+	     }catch (Exception e) {
+	    	 return null;
+		}	   
 	}
 
 }

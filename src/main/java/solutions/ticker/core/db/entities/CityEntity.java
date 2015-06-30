@@ -2,6 +2,7 @@ package solutions.ticker.core.db.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ public class CityEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int city_id;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY,optional=false)
 	@JoinColumn(name="country_id")
 	private CountryEntity countryEntity;
 	private String name;

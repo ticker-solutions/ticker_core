@@ -26,7 +26,10 @@ public class PersonManager implements IPersonManager {
 	     try{
 	    	 personEntity = (PersonEntity)query.getSingleResult();
 	     }catch(NoResultException e){
+	    	e.printStackTrace();
 	    	status = "Error"; 
+	     }catch (Exception e) {
+	    	 e.printStackTrace();
 	     }
 	     
 	     
