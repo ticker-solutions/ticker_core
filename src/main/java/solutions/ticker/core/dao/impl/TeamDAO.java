@@ -13,7 +13,6 @@ import solutions.ticker.core.db.entities.TeamEntity;
 
 public class TeamDAO implements ITeamDAO {
 
-	@Override
 	public List<TeamEntity> getTeams() {
 		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
 	     EntityManager em = emf.createEntityManager();

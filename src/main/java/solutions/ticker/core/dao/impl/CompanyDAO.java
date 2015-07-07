@@ -28,7 +28,6 @@ public class CompanyDAO implements ICompanyDAO {
 	     }	   
 	}
 
-	@Override
 	public void createCompny(CompanyEntity companyEntity) {
 		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
 	     EntityManager em = emf.createEntityManager();

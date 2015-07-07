@@ -30,7 +30,6 @@ public class CityDAO implements ICityDAO {
 		}	   
 	}
 
-	@Override
 	public CityEntity getCityById(Integer cityId) {
 		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
 	     EntityManager em = emf.createEntityManager();

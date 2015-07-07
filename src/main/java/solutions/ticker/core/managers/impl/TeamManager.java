@@ -16,7 +16,6 @@ import solutions.ticker.core.managers.ITeamManager;
 
 public class TeamManager implements ITeamManager {
 
-	@Override
 	public TeamResponse getTeams() {
 		TeamResponse teamResponse = new TeamResponse();
 		teamResponse.setContextResponse(new ContextResponse());

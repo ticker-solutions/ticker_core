@@ -57,7 +57,6 @@ public class CompanyManager implements ICompanyManager {
 	}
 
 
-	@Override
 	public CompanyResponse createCompany(CompanyRequest companyRequest) {
 		CompanyResponse companyResponse = new CompanyResponse();
 		companyResponse.setContextResponse(new ContextResponse());
