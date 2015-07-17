@@ -8,4 +8,6 @@ public interface ITeamDAO {
 
 	List<TeamEntity> getTeams();
 	
+	void createTeam(TeamEntity teamEntity);
+	
 }

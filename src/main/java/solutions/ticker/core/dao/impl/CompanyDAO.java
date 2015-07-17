@@ -45,4 +45,33 @@ public class CompanyDAO implements ICompanyDAO {
 		
 	}
 
+	public CompanyEntity getCompanyById(Integer companyId) {
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+	     EntityManager em = emf.createEntityManager();
+	     
+	     try{
+	    	 return em.find(CompanyEntity.class, companyId);
+	     }catch(NoResultException e){
+	    	return null;
+	     }catch (Exception e) {
+	    	 return null;
+		}	   
+	}
+
+	
+	public List<CompanyEntity> getAllCompaniesByCity(Integer cityId) {
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+	     EntityManager em = emf.createEntityManager();
+	     	     
+	     Query query = em.createQuery("select c from CompanyEntity c where c.cityEntity.city_id =?1");
+	     try{
+	    	 query.setParameter(1,cityId);
+	    	 return query.getResultList();
+	     }catch(NoResultException e){
+	    	return null;
+	     }catch (Exception e) {
+	    	 return null;
+		}	   
+	}
+
 }

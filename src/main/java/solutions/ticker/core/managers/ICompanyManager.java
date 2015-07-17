@@ -6,6 +6,9 @@ import solutions.ticker.core.dtos.CompanyResponse;
 public interface ICompanyManager {
 
 	CompanyResponse getCompanies();
+	
 	CompanyResponse createCompany(CompanyRequest companyRequest);
+	
+	CompanyResponse getAllCompaniesByCity(CompanyRequest companyRequest);
 	
 }

@@ -1,6 +1,7 @@
 package solutions.ticker.core.managers.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import solutions.ticker.core.constant.Status;
 import solutions.ticker.core.dao.ICityDAO;
@@ -75,6 +76,32 @@ public class CompanyManager implements ICompanyManager {
 			e.printStackTrace();
 			status=Status.ERROR.toString();
 		}
+		companyResponse.getContextResponse().setStatus(status);
+		
+		return companyResponse;
+	}
+
+
+	
+	public CompanyResponse getAllCompaniesByCity(CompanyRequest companyRequest) {
+		CompanyResponse companyResponse = new CompanyResponse();
+		companyResponse.setContextResponse(new ContextResponse());
+		
+		ArrayList<CompanyDTO> companyDTOs = new ArrayList<CompanyDTO>();
+		String status=Status.APPROVED.toString();
+		ICompanyDAO companyDAO = new CompanyDAO();
+		try{
+			List<CompanyEntity> companyEntities = companyDAO.getAllCompaniesByCity(companyRequest.getCompanyDTO().getCityDTO().getCity_id());
+			for(CompanyEntity companyEntity: companyEntities){
+				CompanyDTO companyDTO = new CompanyDTO();
+				companyDTO.setCompany_id(companyEntity.getCompany_id());
+				companyDTO.setName(companyEntity.getName());
+				companyDTOs.add(companyDTO);
+			}
+		}catch(Exception e){
+			status=Status.ERROR.toString();
+		}
+		companyResponse.setCompanyDTOs(companyDTOs);
 		companyResponse.getContextResponse().setStatus(status);
 		
 		return companyResponse;

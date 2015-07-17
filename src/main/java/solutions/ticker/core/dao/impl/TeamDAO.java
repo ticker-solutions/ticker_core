@@ -26,4 +26,20 @@ public class TeamDAO implements ITeamDAO {
 	     }	   
 	}
 
+	
+	public void createTeam(TeamEntity teamEntity) {
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+	     EntityManager em = emf.createEntityManager();
+	         
+	     try{
+	    	 em.getTransaction().begin();
+	    	 em.persist(teamEntity);
+	    	 em.getTransaction().commit();
+	    	 em.close();
+	     }catch(NoResultException e){
+	    	 e.printStackTrace();
+	     }	   
+		
+	}
+
 }

@@ -9,4 +9,9 @@ public interface ICompanyDAO {
 	List<CompanyEntity> getCompanies();
 	
 	void createCompny(CompanyEntity companyEntity);
+	
+	CompanyEntity getCompanyById(Integer companyId);
+	
+	List<CompanyEntity> getAllCompaniesByCity(Integer cityId);
+	
 }
