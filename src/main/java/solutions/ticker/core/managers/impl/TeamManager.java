@@ -1,20 +1,17 @@
 package solutions.ticker.core.managers.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import solutions.ticker.core.constant.Status;
-import solutions.ticker.core.dao.ICityDAO;
 import solutions.ticker.core.dao.ICompanyDAO;
 import solutions.ticker.core.dao.ITeamDAO;
-import solutions.ticker.core.dao.impl.CityDAO;
 import solutions.ticker.core.dao.impl.CompanyDAO;
 import solutions.ticker.core.dao.impl.TeamDAO;
-import solutions.ticker.core.db.entities.CityEntity;
 import solutions.ticker.core.db.entities.CompanyEntity;
 import solutions.ticker.core.db.entities.TeamEntity;
 import solutions.ticker.core.dtos.CityDTO;
 import solutions.ticker.core.dtos.CompanyDTO;
-import solutions.ticker.core.dtos.CompanyResponse;
 import solutions.ticker.core.dtos.ContextResponse;
 import solutions.ticker.core.dtos.CountryDTO;
 import solutions.ticker.core.dtos.TeamDTO;
@@ -82,6 +79,32 @@ public class TeamManager implements ITeamManager {
 			e.printStackTrace();
 			status=Status.ERROR.toString();
 		}
+		teamResponse.getContextResponse().setStatus(status);
+		
+		return teamResponse;
+	}
+
+
+	@Override
+	public TeamResponse getAllTeamsByCompany(TeamRequest teamRequest) {
+		TeamResponse teamResponse = new TeamResponse();
+		teamResponse.setContextResponse(new ContextResponse());
+		
+		ArrayList<TeamDTO> teamDTOs = new ArrayList<TeamDTO>();
+		String status=Status.APPROVED.toString();
+		ITeamDAO teamDAO= new TeamDAO();
+		try{
+			List<TeamEntity> teamEntities = teamDAO.getAllTeamsByCompany(teamRequest.getTeamDTO().getCompanyDTO().getCompany_id());
+			for(TeamEntity teamEntity: teamEntities){
+				TeamDTO teamDTO = new TeamDTO();
+				teamDTO.setName(teamEntity.getName());
+				teamDTO.setTeam_id(teamEntity.getTeam_id());
+				teamDTOs.add(teamDTO);
+			}
+		}catch(Exception e){
+			status=Status.ERROR.toString();
+		}
+		teamResponse.setTeamDTOs(teamDTOs);
 		teamResponse.getContextResponse().setStatus(status);
 		
 		return teamResponse;

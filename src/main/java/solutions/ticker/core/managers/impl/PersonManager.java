@@ -1,49 +1,82 @@
 package solutions.ticker.core.managers.impl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.NoResultException;
+
+import solutions.ticker.core.constant.Status;
+import solutions.ticker.core.dao.IPersonDAO;
+import solutions.ticker.core.dao.impl.PersonDAO;
 import solutions.ticker.core.db.entities.PersonEntity;
 import solutions.ticker.core.dtos.ContextResponse;
-import solutions.ticker.core.dtos.PersonRequestDTO;
-import solutions.ticker.core.dtos.PersonResponseDTO;
+import solutions.ticker.core.dtos.PersonDTO;
+import solutions.ticker.core.dtos.PersonRequest;
+import solutions.ticker.core.dtos.PersonResponse;
 import solutions.ticker.core.managers.IPersonManager;
 
 public class PersonManager implements IPersonManager {
 	
-	public PersonResponseDTO signOn(PersonRequestDTO personDTO){
-		 String status= "";
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-	     EntityManager em = emf.createEntityManager();
+	public PersonResponse signOn(PersonRequest personRequest)  {
+		 
+		 String status= "";		 
+		 IPersonDAO personDAO = new PersonDAO();
+		 PersonEntity personEntity=null;
+		 try{
+			 personEntity = personDAO.signOn(personRequest.getPersonDTO());
+		 }catch(NoResultException e){
+			 status=Status.ERROR.name();
+		 }catch(Exception e){
+			 status=Status.ERROR.name();
+		 }
+		 
 	     
-	     Query query = em.createQuery("select p  from PersonEntity p where p.email = ?1 and p.password = ?2");
-	     query.setParameter(1, personDTO.getMail());
-	     query.setParameter(2, personDTO.getPassword());
-	     PersonEntity personEntity = null;
-	     try{
-	    	 personEntity = (PersonEntity)query.getSingleResult();
-	     }catch(NoResultException e){
-	    	e.printStackTrace();
-	    	status = "Error"; 
-	     }catch (Exception e) {
-	    	 e.printStackTrace();
+	     PersonResponse personResponse = new PersonResponse();
+	     personResponse.setContextResponse(new ContextResponse());
+	     
+	     if(!status.equals(Status.ERROR.name())){
+	    	 status = Status.APPROVED.name();
+	    	 PersonDTO personDTO = new PersonDTO();
+	    	 personDTO.setPersonType(personEntity.getPersonTypeEntity().getName());
+	    	 personDTO.setToken("siga!");
+	    	 personResponse.setPersonDTO(personDTO);
 	     }
-	     
-	     
-	     PersonResponseDTO personResponseDTO = new PersonResponseDTO();
-	     personResponseDTO.setContextResponse(new ContextResponse());
-	     
-	     if(personEntity != null){
-	    	 status = "Approved";
-	    	 personResponseDTO.setToken("siga!");
-	    	 personResponseDTO.setPersonType(personEntity.getPersonTypeEntity().getName());
-	     }
-	     personResponseDTO.getContextResponse().setStatus(status);
-	     return personResponseDTO;
+	     personResponse.getContextResponse().setStatus(status);
+	     return personResponse;
 	}
 
-	
+	@Override
+	public PersonResponse getPeopleByTeam(PersonRequest personRequest) {
+		 String status= "";		 
+		 IPersonDAO personDAO = new PersonDAO();
+		 List<PersonEntity> personEntities = null;
+		 try{
+			 personEntities = personDAO.getPeopleByTeam(personRequest);			 
+		 }catch(NoResultException e){
+			 status=Status.ERROR.name();
+		 }catch(Exception e){
+			 status=Status.ERROR.name();
+		 }
+		 
+	     
+	     PersonResponse personResponse = new PersonResponse();
+	     personResponse.setContextResponse(new ContextResponse());
+	     
+	     if(!status.equals(Status.ERROR.name())){
+	    	 List<PersonDTO> personDTOs = new ArrayList<PersonDTO>();
+	    	 for(PersonEntity personEntity: personEntities){
+		    	 PersonDTO personDTO = new PersonDTO();
+		    	 personDTO.setName(personEntity.getName());
+		    	 personDTO.setLast_name(personEntity.getLast_name());
+		    	 personDTO.setMail(personEntity.getEmail());
+		    	 personDTOs.add(personDTO);
+			 }
+	    	 status = Status.APPROVED.name();
+
+	    	 personResponse.setPersonDTOs(personDTOs);
+	     }
+	     personResponse.getContextResponse().setStatus(status);
+	     return personResponse;
+	}
+
 }

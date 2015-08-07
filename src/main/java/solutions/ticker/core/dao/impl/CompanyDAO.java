@@ -10,17 +10,15 @@ import javax.persistence.Query;
 
 import solutions.ticker.core.dao.ICompanyDAO;
 import solutions.ticker.core.db.entities.CompanyEntity;
+import solutions.ticker.core.tools.DBSingleton;
 
 public class CompanyDAO implements ICompanyDAO {
 	
 
 	public List<CompanyEntity> getCompanies() {
 		
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-	     EntityManager em = emf.createEntityManager();
-	     	     	     
 	     try{
-	    	 Query query = em.createQuery("select c from CompanyEntity c");
+	    	 Query query = DBSingleton.getEntityManager().createQuery("select c from CompanyEntity c");
 	    	 
 	    	 return query.getResultList();
 	     }catch(NoResultException e){
@@ -29,16 +27,11 @@ public class CompanyDAO implements ICompanyDAO {
 	}
 
 	public void createCompny(CompanyEntity companyEntity) {
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-	     EntityManager em = emf.createEntityManager();
-	         
-	     try{
-	    	 
-	    		    	 
-	    	 em.getTransaction().begin();
-	    	 em.persist(companyEntity);
-	    	 em.getTransaction().commit();
-	    	 em.close();
+		
+	     try{   		    	 
+	    	 DBSingleton.getEntityManager().getTransaction().begin();
+	    	 DBSingleton.getEntityManager().persist(companyEntity);
+	    	 DBSingleton.getEntityManager().getTransaction().commit();	
 	     }catch(NoResultException e){
 	    	 e.printStackTrace();
 	     }	   
@@ -46,11 +39,9 @@ public class CompanyDAO implements ICompanyDAO {
 	}
 
 	public CompanyEntity getCompanyById(Integer companyId) {
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-	     EntityManager em = emf.createEntityManager();
-	     
+		
 	     try{
-	    	 return em.find(CompanyEntity.class, companyId);
+	    	 return DBSingleton.getEntityManager().find(CompanyEntity.class, companyId);
 	     }catch(NoResultException e){
 	    	return null;
 	     }catch (Exception e) {

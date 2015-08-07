@@ -10,4 +10,6 @@ public interface ITeamDAO {
 	
 	void createTeam(TeamEntity teamEntity);
 	
+	List<TeamEntity> getAllTeamsByCompany(Integer companyId);
+	
 }

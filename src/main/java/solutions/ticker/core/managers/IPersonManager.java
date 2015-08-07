@@ -1,10 +1,12 @@
 package solutions.ticker.core.managers;
 
-import solutions.ticker.core.dtos.PersonRequestDTO;
-import solutions.ticker.core.dtos.PersonResponseDTO;
+import solutions.ticker.core.dtos.PersonRequest;
+import solutions.ticker.core.dtos.PersonResponse;
 
 public interface IPersonManager {
 
-	PersonResponseDTO signOn(PersonRequestDTO personDTO);
+	PersonResponse signOn(PersonRequest personRequest);
+	
+	PersonResponse getPeopleByTeam(PersonRequest personRequest);
 	
 }

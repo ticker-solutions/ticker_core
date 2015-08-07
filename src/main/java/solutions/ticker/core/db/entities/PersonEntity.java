@@ -2,8 +2,8 @@ package solutions.ticker.core.db.entities;
 
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,9 +19,12 @@ public class PersonEntity {
 
 	@Id
 	private Integer person_id;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY,optional=false)
 	@JoinColumn(name="person_type_id")
 	private PersonTypeEntity personTypeEntity;
+	@ManyToOne(fetch=FetchType.LAZY,optional=false)
+	@JoinColumn(name="team_id")
+	private TeamEntity teamEntity;
 	private String name;
 	private String last_name;
 	private String email;	
@@ -43,6 +46,14 @@ public class PersonEntity {
 
 	public void setPersonTypeEntity(PersonTypeEntity personTypeEntity) {
 		this.personTypeEntity = personTypeEntity;
+	}
+	
+	public TeamEntity getTeamEntity() {
+		return teamEntity;
+	}
+
+	public void setTeamEntity(TeamEntity teamEntity) {
+		this.teamEntity = teamEntity;
 	}
 
 	public String getName() {

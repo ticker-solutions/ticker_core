@@ -8,4 +8,6 @@ public interface ITeamManager {
 	TeamResponse getTeams();
 	
 	TeamResponse createTeam(TeamRequest teamRequest);
+	
+	TeamResponse getAllTeamsByCompany(TeamRequest teamRequest);
 }

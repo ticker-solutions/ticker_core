@@ -42,4 +42,21 @@ public class TeamDAO implements ITeamDAO {
 		
 	}
 
+
+	@Override
+	public List<TeamEntity> getAllTeamsByCompany(Integer companyId) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
+	     EntityManager em = emf.createEntityManager();
+	     	     
+	     Query query = em.createQuery("select t from TeamEntity t where t.companyEntity.company_id =?1");
+	     try{
+	    	 query.setParameter(1,companyId);
+	    	 return query.getResultList();
+	     }catch(NoResultException e){
+	    	return null;
+	     }catch (Exception e) {
+	    	 return null;
+		}	   
+	}
+
 }

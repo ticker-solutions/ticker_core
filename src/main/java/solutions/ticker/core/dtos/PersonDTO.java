@@ -4,12 +4,14 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 
 @JacksonXmlRootElement
-public class PersonRequestDTO {
+public class PersonDTO {
 
 	private String name;
 	private String last_name;
 	private String mail;
 	private String password;
+	private String token;
+	private String personType;
 	
 	
 	public String getName() {
@@ -35,6 +37,18 @@ public class PersonRequestDTO {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public String getPersonType() {
+		return personType;
+	}
+	public void setPersonType(String personType) {
+		this.personType = personType;
 	}
 	
 	

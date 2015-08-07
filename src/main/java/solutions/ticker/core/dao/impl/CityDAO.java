@@ -11,14 +11,13 @@ import javax.persistence.Query;
 import solutions.ticker.core.dao.ICityDAO;
 import solutions.ticker.core.db.entities.CityEntity;
 import solutions.ticker.core.dtos.CityRequest;
+import solutions.ticker.core.tools.DBSingleton;
 
 public class CityDAO implements ICityDAO {
 
 	public List<CityEntity> getCities(CityRequest cityRequest) {
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-	     EntityManager em = emf.createEntityManager();
-	     	     
-	     Query query = em.createQuery("select c from CityEntity c where c.countryEntity.country_id =?1 and c.population > ?2");
+		 
+	     Query query = DBSingleton.getEntityManager().createQuery("select c from CityEntity c where c.countryEntity.country_id =?1 and c.population > ?2");
 	     try{
 	    	 query.setParameter(1,cityRequest.getCountryDTO().getCountry_id());
 	    	 query.setParameter(2,1000000);
@@ -31,11 +30,9 @@ public class CityDAO implements ICityDAO {
 	}
 
 	public CityEntity getCityById(Integer cityId) {
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
-	     EntityManager em = emf.createEntityManager();
-	     
+		
 	     try{
-	    	 return em.find(CityEntity.class, cityId);
+	    	 return DBSingleton.getEntityManager().find(CityEntity.class, cityId);
 	     }catch(NoResultException e){
 	    	return null;
 	     }catch (Exception e) {
