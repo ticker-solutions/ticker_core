@@ -43,7 +43,7 @@ public class TeamDAO implements ITeamDAO {
 	}
 
 
-	@Override
+	
 	public List<TeamEntity> getAllTeamsByCompany(Integer companyId) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("TickerCorePU");
 	     EntityManager em = emf.createEntityManager();

@@ -25,7 +25,7 @@ public class PersonDAO implements IPersonDAO {
 	     return personEntity;
 	}
 
-	@Override
+	
 	public List<PersonEntity> getPeopleByTeam(PersonRequest personRequest) throws NoResultException {
 		
 	     Query query = DBSingleton.getEntityManager().createQuery("select p  from PersonEntity p where p.personTypeEntity.name = ?1 and p.teamEntity.team_id = ?2");

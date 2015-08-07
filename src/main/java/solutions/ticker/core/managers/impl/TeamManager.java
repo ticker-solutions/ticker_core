@@ -85,7 +85,7 @@ public class TeamManager implements ITeamManager {
 	}
 
 
-	@Override
+	
 	public TeamResponse getAllTeamsByCompany(TeamRequest teamRequest) {
 		TeamResponse teamResponse = new TeamResponse();
 		teamResponse.setContextResponse(new ContextResponse());

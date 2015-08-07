@@ -45,7 +45,7 @@ public class PersonManager implements IPersonManager {
 	     return personResponse;
 	}
 
-	@Override
+	
 	public PersonResponse getPeopleByTeam(PersonRequest personRequest) {
 		 String status= "";		 
 		 IPersonDAO personDAO = new PersonDAO();
